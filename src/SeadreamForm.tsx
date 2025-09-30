@@ -12,6 +12,24 @@ import {
 import { isNotEmpty, useForm } from '@mantine/form'
 import { isNumber } from 'lodash'
 
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp: {
+        initData: string
+        ready: () => void
+        sendData: (data: string) => void
+        close: () => void
+        // add other methods/properties if you use them:
+        // onEvent?: (event: string, cb: (...args:any[]) => void) => void;
+        // offEvent?: (event: string, cb: (...args:any[]) => void) => void;
+        // expand?: () => void;
+        // colorScheme?: 'light' | 'dark';
+      }
+    }
+  }
+}
+
 const SeadreamForm = () => {
   const form = useForm({
     initialValues: {
@@ -31,11 +49,16 @@ const SeadreamForm = () => {
     },
   })
 
+  const sendData = (data: any) => {
+    const tg = window.Telegram!.WebApp
+    tg.ready()
+
+    tg.sendData(JSON.stringify(data))
+    tg.close()
+  }
+
   return (
-    <form
-      onSubmit={form.onSubmit((values) => alert(JSON.stringify(values)))}
-      style={{ padding: '25px' }}
-    >
+    <form onSubmit={form.onSubmit((values) => sendData(values))} style={{ padding: '25px' }}>
       <Stack>
         <Textarea
           withAsterisk
