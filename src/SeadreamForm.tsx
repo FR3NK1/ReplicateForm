@@ -36,7 +36,7 @@ const SeadreamForm = () => {
       prompt: '',
       image_input: false,
       size: '2K',
-      aspect_ratio: 'match_input_image',
+      aspect_ratio: '4:3',
       width: 2048,
       height: 2048,
     },
