@@ -1,6 +1,11 @@
 import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
+import SeadreamForm from './SeaDreamForm'
 
 export default function App() {
-  return <MantineProvider>App</MantineProvider>
+  return (
+    <MantineProvider>
+      <SeadreamForm />
+    </MantineProvider>
+  )
 }
