@@ -1,7 +1,7 @@
 import {
   Button,
   Card,
-  FileInput,
+  Checkbox,
   Group,
   NumberInput,
   Select,
@@ -16,7 +16,7 @@ const SeadreamForm = () => {
   const form = useForm({
     initialValues: {
       prompt: '',
-      image_input: null,
+      image_input: false,
       size: '2K',
       aspect_ratio: 'match_input_image',
       width: 2048,
@@ -44,10 +44,8 @@ const SeadreamForm = () => {
           key={form.key('prompt')}
           {...form.getInputProps('prompt')}
         />
-        <FileInput
-          label='image_input'
-          placeholder='1-10 images'
-          multiple
+        <Checkbox
+          label='Добавить изображения (1-10 штук)'
           key={form.key('image_input')}
           {...form.getInputProps('image_input')}
         />
@@ -69,13 +67,12 @@ const SeadreamForm = () => {
         <Card shadow='sm' padding='lg' radius='md' withBorder>
           <Stack>
             <Text fw={500}>Если выбран size "Custom"</Text>
-            <Group justify='space-between'>
+            <Group grow>
               <NumberInput
                 withAsterisk={form.values.size === 'custom'}
                 label='width'
                 min={1024}
                 max={4096}
-                w={'48%'}
                 disabled={!(form.values.size === 'custom')}
                 key={form.key('width')}
                 {...form.getInputProps('width')}
@@ -85,7 +82,6 @@ const SeadreamForm = () => {
                 label='height'
                 min={1024}
                 max={4096}
-                w={'48%'}
                 disabled={!(form.values.size === 'custom')}
                 key={form.key('height')}
                 {...form.getInputProps('height')}
